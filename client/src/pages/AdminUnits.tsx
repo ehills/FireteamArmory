@@ -15,13 +15,12 @@ export default function AdminUnits() {
   const [storedUnits, setStoredUnits] = useLocalStorage<Unit[]>('customUnits', []);
   
   // Combined units (default + custom)
-  const [allUnits, setAllUnits] = useState<Unit[]>([]);
+  const [allUnits, setAllUnits] = useState<Unit[]>([...defaultUnits]);
   
-  // Set up initial units list when component mounts
+  // Update all units when stored units change
   useEffect(() => {
     setAllUnits([...defaultUnits, ...storedUnits]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [storedUnits]);
   
   // Selected unit for editing or deletion
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);

@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useArmy } from '@/contexts/ArmyContext';
-import { units, UnitType } from '@/data/units';
+import { units as defaultUnits, UnitType, Unit } from '@/data/units';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import UnitCard from './UnitCard';
 
 export default function UnitBrowser() {
@@ -8,10 +9,18 @@ export default function UnitBrowser() {
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('');
   const [sortOption, setSortOption] = useState<string>('name');
+  
+  // Load custom units from local storage
+  const [customUnits] = useLocalStorage<Unit[]>('customUnits', []);
+  
+  // Combine default and custom units
+  const allUnits = useMemo(() => {
+    return [...defaultUnits, ...customUnits];
+  }, [customUnits]);
 
   // Filter and sort units based on search term, type filter, and sort option
   const filteredUnits = useMemo(() => {
-    let filtered = [...units];
+    let filtered = [...allUnits];
     
     // Apply search filter
     if (searchTerm) {
@@ -39,7 +48,7 @@ export default function UnitBrowser() {
     });
     
     return filtered;
-  }, [searchTerm, typeFilter, sortOption]);
+  }, [allUnits, searchTerm, typeFilter, sortOption]);
 
   // Event handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
