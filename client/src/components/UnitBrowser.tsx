@@ -16,7 +16,7 @@ export default function UnitBrowser() {
   // Combine default and custom units
   const allUnits = useMemo(() => {
     return [...defaultUnits, ...customUnits];
-  }, [customUnits]);
+  }, [customUnits.length]);
 
   // Filter and sort units based on search term, type filter, and sort option
   const filteredUnits = useMemo(() => {

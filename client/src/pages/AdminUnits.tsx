@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Unit, UnitType, Upgrade, UnitStat, units as defaultUnits } from '@/data/units';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useToast } from '@/hooks/use-toast';
@@ -20,7 +20,7 @@ export default function AdminUnits() {
   // Update all units when stored units change
   useEffect(() => {
     setAllUnits([...defaultUnits, ...storedUnits]);
-  }, [storedUnits]);
+  }, [storedUnits.length]);
   
   // Selected unit for editing or deletion
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
@@ -73,11 +73,31 @@ export default function AdminUnits() {
   
   const { toast } = useToast();
   
-  // Filter to show only custom units
+  // Search and filter states
   const [showOnlyCustom, setShowOnlyCustom] = useState(false);
-  const displayedUnits = showOnlyCustom 
-    ? allUnits.filter(unit => storedUnits.some(customUnit => customUnit.id === unit.id))
-    : allUnits;
+  const [nameFilter, setNameFilter] = useState('');
+  
+  // Apply filters
+  const displayedUnits = useMemo(() => {
+    let filtered = allUnits;
+    
+    // Filter by custom if needed
+    if (showOnlyCustom) {
+      filtered = filtered.filter(unit => 
+        storedUnits.some(customUnit => customUnit.id === unit.id)
+      );
+    }
+    
+    // Filter by name if search term exists
+    if (nameFilter.trim() !== '') {
+      const searchLower = nameFilter.toLowerCase();
+      filtered = filtered.filter(unit => 
+        unit.name.toLowerCase().includes(searchLower)
+      );
+    }
+    
+    return filtered;
+  }, [allUnits, showOnlyCustom, nameFilter, storedUnits]);
   
   // Function to handle opening the add unit dialog
   const handleAddUnit = () => {
@@ -267,15 +287,46 @@ export default function AdminUnits() {
       
       <main className="container mx-auto p-4">
         <div className="bg-dark-300 rounded-lg p-6 mb-6">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-display font-bold">Unit Manager</h1>
-            <div className="flex space-x-3">
-              <Button variant="outline" onClick={() => setShowOnlyCustom(!showOnlyCustom)}>
-                {showOnlyCustom ? "Show All Units" : "Show Custom Units Only"}
-              </Button>
-              <Button onClick={handleAddUnit}>
-                Add New Unit
-              </Button>
+          <div className="flex flex-col gap-4 mb-6">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-display font-bold">Unit Manager</h1>
+              <div className="flex space-x-3">
+                <Button variant="outline" onClick={() => setShowOnlyCustom(!showOnlyCustom)}>
+                  {showOnlyCustom ? "Show All Units" : "Show Custom Units Only"}
+                </Button>
+                <Button onClick={handleAddUnit}>
+                  Add New Unit
+                </Button>
+              </div>
+            </div>
+            
+            <div className="relative max-w-md">
+              <Input
+                type="text"
+                placeholder="Search units by name..."
+                value={nameFilter}
+                onChange={(e) => setNameFilter(e.target.value)}
+                className="bg-dark-400 border-dark-200 pl-8 focus:border-primary"
+              />
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-4 w-4 absolute left-2.5 top-3 text-gray-400" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              {nameFilter && (
+                <button
+                  className="absolute right-2.5 top-3 text-gray-400 hover:text-white"
+                  onClick={() => setNameFilter('')}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
           
