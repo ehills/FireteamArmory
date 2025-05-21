@@ -17,13 +17,10 @@ export default function AdminUnits() {
   // Combined units (default + custom)
   const [allUnits, setAllUnits] = useState<Unit[]>([...defaultUnits]);
   
-  // Get a stable reference to the stored units length
-  const storedUnitsLength = useMemo(() => storedUnits.length, [storedUnits]);
-  
   // Update all units when stored units change
   useEffect(() => {
     setAllUnits([...defaultUnits, ...storedUnits]);
-  }, [storedUnitsLength]);
+  }, [storedUnits.length]);
   
   // Selected unit for editing or deletion
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);

@@ -13,11 +13,10 @@ export default function UnitBrowser() {
   // Load custom units from local storage
   const [customUnits] = useLocalStorage<Unit[]>('customUnits', []);
   
-  // Combine default and custom units in a stable way
-  const customUnitsLength = useMemo(() => customUnits.length, [customUnits]);
+  // Combine default and custom units
   const allUnits = useMemo(() => {
     return [...defaultUnits, ...customUnits];
-  }, [customUnitsLength]);
+  }, [customUnits.length]);
 
   // Filter and sort units based on search term, type filter, and sort option
   const filteredUnits = useMemo(() => {
