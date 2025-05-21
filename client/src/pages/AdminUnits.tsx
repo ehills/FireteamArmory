@@ -14,13 +14,24 @@ export default function AdminUnits() {
   // Units stored in local storage
   const [storedUnits, setStoredUnits] = useLocalStorage<Unit[]>('customUnits', []);
   
-  // Combined units (default + custom)
-  const [allUnits, setAllUnits] = useState<Unit[]>([...defaultUnits]);
+  // Get all units (default + custom)
+  const getAllUnits = (): Unit[] => {
+    const combinedUnits = [...defaultUnits];
+    
+    // Add custom units without duplicates
+    if (storedUnits && storedUnits.length > 0) {
+      storedUnits.forEach(unit => {
+        if (!combinedUnits.some(existing => existing.id === unit.id)) {
+          combinedUnits.push(unit);
+        }
+      });
+    }
+    
+    return combinedUnits;
+  };
   
-  // Update all units when stored units change
-  useEffect(() => {
-    setAllUnits([...defaultUnits, ...storedUnits]);
-  }, [storedUnits.length]);
+  // Combined units
+  const allUnits = getAllUnits();
   
   // Selected unit for editing or deletion
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
