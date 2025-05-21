@@ -12,22 +12,16 @@ export default function AppHeader() {
     <header className="bg-dark-400 border-b border-dark-100 py-4 px-6">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link href="/">
-            <a className="text-2xl font-display font-bold text-primary flex items-center">
-              <span className="text-white">War</span>Forge
-            </a>
+          <Link href="/" className="text-2xl font-display font-bold text-primary flex items-center">
+            <span className="text-white">War</span>Forge
           </Link>
           
           <div className="ml-8 flex space-x-4">
-            <Link href="/">
-              <a className={`px-3 py-1 rounded text-sm transition-colors ${isHomePage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
-                Army Builder
-              </a>
+            <Link href="/" className={`px-3 py-1 rounded text-sm transition-colors ${isHomePage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
+              Army Builder
             </Link>
-            <Link href="/admin/units">
-              <a className={`px-3 py-1 rounded text-sm transition-colors ${isAdminPage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
-                Admin
-              </a>
+            <Link href="/admin/units" className={`px-3 py-1 rounded text-sm transition-colors ${isAdminPage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
+              Admin
             </Link>
           </div>
         </div>

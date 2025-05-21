@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Unit, UnitType, Upgrade, UnitStat } from '@/data/units';
+import { useState, useEffect } from 'react';
+import { Unit, UnitType, Upgrade, UnitStat, units as defaultUnits } from '@/data/units';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useToast } from '@/hooks/use-toast';
 import AppHeader from '@/components/AppHeader';
@@ -15,12 +15,13 @@ export default function AdminUnits() {
   const [storedUnits, setStoredUnits] = useLocalStorage<Unit[]>('customUnits', []);
   
   // Combined units (default + custom)
-  const [allUnits, setAllUnits] = useState<Unit[]>(() => {
-    // We'll load the default units from data/units.ts via a separate import 
-    // to avoid circular imports with context providers
-    const defaultUnits = require('@/data/units').units;
-    return [...defaultUnits, ...storedUnits];
-  });
+  const [allUnits, setAllUnits] = useState<Unit[]>([]);
+  
+  // Set up initial units list when component mounts
+  useEffect(() => {
+    setAllUnits([...defaultUnits, ...storedUnits]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   
   // Selected unit for editing or deletion
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);

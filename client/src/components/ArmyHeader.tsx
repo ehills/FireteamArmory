@@ -1,7 +1,15 @@
 import { useArmy } from '@/contexts/ArmyContext';
+import { 
+  Select, 
+  SelectContent, 
+  SelectGroup, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 
 export default function ArmyHeader() {
-  const { currentArmy, pointExceeded, setArmyName, setPointCap } = useArmy();
+  const { currentArmy, savedArmies, pointExceeded, setArmyName, setPointCap, loadArmy } = useArmy();
 
   const handleArmyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArmyName(e.target.value);
@@ -12,6 +20,14 @@ export default function ArmyHeader() {
     if (!isNaN(newCap) && newCap >= 500) {
       setPointCap(newCap);
     }
+  };
+  
+  const handleArmyChange = (armyId: string) => {
+    // If selecting current army, do nothing
+    if (armyId === currentArmy.id) return;
+    
+    // If selecting "new", create a new army (handled by loadArmy)
+    loadArmy(armyId);
   };
 
   // Calculate progress bar percentage (capped at 100%)
@@ -38,15 +54,45 @@ export default function ArmyHeader() {
     <div className="bg-dark-300 rounded-lg p-4 mb-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex-grow">
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={currentArmy.name}
-              placeholder="Army Name"
-              className="bg-dark-400 border border-dark-100 rounded p-2 text-xl font-display w-full md:w-auto focus:ring-1 focus:ring-primary focus:outline-none"
-              onChange={handleArmyNameChange}
-            />
+          <div className="flex flex-col md:flex-row md:items-center gap-3">
+            {/* Army Selector */}
+            <div className="w-full md:w-64">
+              <Select value={currentArmy.id} onValueChange={handleArmyChange}>
+                <SelectTrigger className="bg-dark-400 border-dark-100">
+                  <SelectValue placeholder="Select army" />
+                </SelectTrigger>
+                <SelectContent className="bg-dark-400 border-dark-100">
+                  <SelectGroup>
+                    {/* Current (unsaved) army */}
+                    {!savedArmies.some(army => army.id === currentArmy.id) && (
+                      <SelectItem value={currentArmy.id} className="text-primary">
+                        {currentArmy.name || "Unnamed Army"} (Current)
+                      </SelectItem>
+                    )}
+                    
+                    {/* Saved armies */}
+                    {savedArmies.map(army => (
+                      <SelectItem key={army.id} value={army.id}>
+                        {army.name} ({army.totalPoints} pts)
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Army Name Input */}
+            <div className="flex-grow">
+              <input
+                type="text"
+                value={currentArmy.name}
+                placeholder="Army Name"
+                className="bg-dark-400 border border-dark-100 rounded p-2 text-xl font-display w-full focus:ring-1 focus:ring-primary focus:outline-none"
+                onChange={handleArmyNameChange}
+              />
+            </div>
           </div>
+          
           <div className="flex mt-2 items-center">
             <span className="text-sm text-gray-400 mr-2">Point Cap:</span>
             <input
