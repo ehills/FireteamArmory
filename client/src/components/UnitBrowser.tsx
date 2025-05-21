@@ -1,7 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useArmy } from '@/contexts/ArmyContext';
 import { units as defaultUnits, UnitType, Unit } from '@/data/units';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 import UnitCard from './UnitCard';
 
 export default function UnitBrowser() {
@@ -10,24 +9,54 @@ export default function UnitBrowser() {
   const [typeFilter, setTypeFilter] = useState<string>('');
   const [sortOption, setSortOption] = useState<string>('name');
   
-  // Load custom units from local storage
-  const [customUnits] = useLocalStorage<Unit[]>('customUnits', []);
+  // Internal state to store all units (default + custom)
+  const [allUnits, setAllUnits] = useState<Unit[]>([...defaultUnits]);
   
-  // Get all units (default + custom)
-  const allUnits = [...defaultUnits];
-  
-  // Add custom units if they exist
-  if (customUnits && customUnits.length > 0) {
-    // Only add custom units that aren't duplicates of default units
-    customUnits.forEach(unit => {
-      if (!allUnits.some(existing => existing.id === unit.id)) {
-        allUnits.push(unit);
+  // Function to load custom units
+  const loadCustomUnits = () => {
+    try {
+      const storedCustomUnitsJson = localStorage.getItem('customUnits');
+      if (storedCustomUnitsJson) {
+        const storedCustomUnits = JSON.parse(storedCustomUnitsJson);
+        
+        // Combine default units with custom units, avoiding duplicates
+        const combinedUnits = [...defaultUnits];
+        if (Array.isArray(storedCustomUnits)) {
+          storedCustomUnits.forEach((unit: Unit) => {
+            if (!combinedUnits.some(existing => existing.id === unit.id)) {
+              combinedUnits.push(unit);
+            }
+          });
+        }
+        
+        setAllUnits(combinedUnits);
       }
-    });
-  }
+    } catch (error) {
+      console.error('Error loading custom units:', error);
+    }
+  };
+  
+  // Load custom units when component mounts
+  useEffect(() => {
+    loadCustomUnits();
+    
+    // Set up storage event listener to reload when custom units change
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'customUnits') {
+        loadCustomUnits();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []); // Empty array means this runs once on mount
 
-  // Filter and sort units
-  const getFilteredUnits = () => {
+  // Filter and sort units - recompute when dependencies change
+  const filteredUnits = useMemo(() => {
     let filtered = [...allUnits];
     
     // Apply search filter
@@ -56,10 +85,7 @@ export default function UnitBrowser() {
     });
     
     return filtered;
-  };
-  
-  // Get filtered units
-  const filteredUnits = getFilteredUnits();
+  }, [allUnits, searchTerm, typeFilter, sortOption]);
 
   // Event handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
