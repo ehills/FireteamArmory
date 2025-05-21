@@ -26,8 +26,8 @@ export default function UnitBrowser() {
     });
   }
 
-  // Filter and sort units based on search term, type filter, and sort option
-  const filteredUnits = useMemo(() => {
+  // Filter and sort units
+  const getFilteredUnits = () => {
     let filtered = [...allUnits];
     
     // Apply search filter
@@ -56,7 +56,10 @@ export default function UnitBrowser() {
     });
     
     return filtered;
-  }, [allUnits, searchTerm, typeFilter, sortOption]);
+  };
+  
+  // Get filtered units
+  const filteredUnits = getFilteredUnits();
 
   // Event handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -168,7 +168,6 @@ export default function AdminUnits() {
       // Add new unit to custom units
       const newCustomUnits = [...storedUnits, unitForm];
       setStoredUnits(newCustomUnits);
-      setAllUnits([...allUnits, unitForm]);
       
       toast({
         title: "Unit Added",
@@ -182,12 +181,7 @@ export default function AdminUnits() {
       
       setStoredUnits(updatedCustomUnits);
       
-      // Update all units list
-      const updatedAllUnits = allUnits.map(unit => 
-        unit.id === unitForm.id ? unitForm : unit
-      );
-      
-      setAllUnits(updatedAllUnits);
+      // Units will update automatically via getAllUnits
       
       toast({
         title: "Unit Updated",
@@ -210,9 +204,7 @@ export default function AdminUnits() {
       const updatedCustomUnits = storedUnits.filter(unit => unit.id !== selectedUnit.id);
       setStoredUnits(updatedCustomUnits);
       
-      // Remove from all units list
-      const updatedAllUnits = allUnits.filter(unit => unit.id !== selectedUnit.id);
-      setAllUnits(updatedAllUnits);
+      // Units will update automatically
       
       toast({
         title: "Unit Deleted",
