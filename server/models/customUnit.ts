@@ -5,7 +5,7 @@ import { Unit } from '../../shared/schema';
 export async function getAllCustomUnits(): Promise<Unit[]> {
   const db = await connectToDatabase();
   const customUnits = await db.collection(COLLECTIONS.CUSTOM_UNITS).find().toArray();
-  return customUnits as Unit[];
+  return customUnits.map(doc => doc as unknown as Unit);
 }
 
 // Get a custom unit by ID
