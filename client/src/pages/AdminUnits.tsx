@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import {Veterancy} from "@shared/schema.ts";
 
 export default function AdminUnits() {
   // Units stored in local storage
@@ -50,6 +51,7 @@ export default function AdminUnits() {
     pointCost: number;
     stats: UnitStat;
     upgrades: Upgrade[];
+    veterancy: Veterancy;
   }>({
     id: '',
     name: '',
@@ -62,7 +64,8 @@ export default function AdminUnits() {
       range: '12"',
       special: ''
     },
-    upgrades: []
+    upgrades: [],
+    veterancy: 'Trained'
   });
   
   // State for the new upgrade form
@@ -124,7 +127,8 @@ export default function AdminUnits() {
         range: '12"',
         special: ''
       },
-      upgrades: []
+      upgrades: [],
+      veterancy: 'Trained'
     });
     setIsDialogOpen(true);
   };
@@ -336,10 +340,7 @@ export default function AdminUnits() {
             <TabsList className="mb-4">
               <TabsTrigger value="all">All Units</TabsTrigger>
               <TabsTrigger value="infantry">Infantry</TabsTrigger>
-              <TabsTrigger value="cavalry">Cavalry</TabsTrigger>
               <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
-              <TabsTrigger value="monster">Monster</TabsTrigger>
-              <TabsTrigger value="hero">Hero</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all" className="space-y-4">
@@ -350,20 +351,8 @@ export default function AdminUnits() {
               {displayUnitsList(displayedUnits.filter(unit => unit.type === 'infantry'))}
             </TabsContent>
             
-            <TabsContent value="cavalry" className="space-y-4">
-              {displayUnitsList(displayedUnits.filter(unit => unit.type === 'cavalry'))}
-            </TabsContent>
-            
             <TabsContent value="vehicle" className="space-y-4">
               {displayUnitsList(displayedUnits.filter(unit => unit.type === 'vehicle'))}
-            </TabsContent>
-            
-            <TabsContent value="monster" className="space-y-4">
-              {displayUnitsList(displayedUnits.filter(unit => unit.type === 'monster'))}
-            </TabsContent>
-            
-            <TabsContent value="hero" className="space-y-4">
-              {displayUnitsList(displayedUnits.filter(unit => unit.type === 'hero'))}
             </TabsContent>
           </Tabs>
         </div>
@@ -399,10 +388,7 @@ export default function AdminUnits() {
                     </SelectTrigger>
                     <SelectContent className="bg-dark-400 border-dark-200">
                       <SelectItem value="infantry">Infantry</SelectItem>
-                      <SelectItem value="cavalry">Cavalry</SelectItem>
                       <SelectItem value="vehicle">Vehicle</SelectItem>
-                      <SelectItem value="monster">Monster</SelectItem>
-                      <SelectItem value="hero">Hero</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -752,7 +738,7 @@ export default function AdminUnits() {
                 <div className="mt-3">
                   <h4 className="text-xs font-semibold text-gray-300 mb-1">Upgrades</h4>
                   <div className="text-xs text-gray-400">
-                    {unit.upgrades.map((upgrade, index) => (
+                    {unit.upgrades.map((upgrade) => (
                       <div key={upgrade.id} className="flex justify-between py-1 border-t border-dark-300">
                         <span>{upgrade.name}</span>
                         <span>{upgrade.pointCost} pts</span>

@@ -28,14 +28,17 @@ export interface Unit {
   pointCost: number;
   stats: UnitStat;
   upgrades: Upgrade[];
+  veterancy: Veterancy;
 }
 
-export type UnitType = 'infantry' | 'cavalry' | 'vehicle' | 'monster' | 'hero';
+export type UnitType = 'infantry' | 'vehicle';
+export type Veterancy = 'Conscript' | 'Trained' | 'Experienced' | 'Veteran';
 
 export interface ArmyUnit extends Unit {
   selectedUpgrades: string[];
   totalPointCost: number;
   finalStats: UnitStat;
+  veterancy: Veterancy;
 }
 
 export interface Army {
@@ -78,7 +81,8 @@ export const units: Unit[] = [
           special: "Blast"
         }
       }
-    ]
+    ],
+    veterancy: "Trained"
   },
   {
     id: "infantry-squad",
@@ -111,7 +115,8 @@ export const units: Unit[] = [
           special: "Squad, Leader"
         }
       }
-    ]
+    ],
+    veterancy: "Trained"
   },
   {
     id: "sherman-tank",
@@ -144,12 +149,13 @@ export const units: Unit[] = [
           special: "Armored, Anti-Tank"
         }
       }
-    ]
+    ],
+    veterancy: "Trained"
   },
   {
     id: "veteran-officer",
     name: "Veteran Officer",
-    type: "hero",
+    type: "infantry",
     pointCost: 85,
     stats: {
       movement: "5\"",
@@ -178,12 +184,13 @@ export const units: Unit[] = [
           special: "Leader, Pistol"
         }
       }
-    ]
+    ],
+    veterancy: "Veteran"
   },
   {
     id: "motorcycle-scout",
     name: "Motorcycle Scout",
-    type: "cavalry",
+    type: "vehicle",
     pointCost: 35,
     stats: {
       movement: "12\"",
@@ -211,7 +218,8 @@ export const units: Unit[] = [
           special: "Fast, Scout, Spotter"
         }
       }
-    ]
+    ],
+    veterancy: "Experienced"
   },
   {
     id: "flamethrower-team",
@@ -245,7 +253,8 @@ export const units: Unit[] = [
           special: "Burn, Team"
         }
       }
-    ]
+    ],
+    veterancy: "Trained"
   },
   {
     id: "artillery-howitzer",
@@ -279,7 +288,8 @@ export const units: Unit[] = [
           special: "Blast, Indirect, Devastating"
         }
       }
-    ]
+    ],
+    veterancy: "Trained"
   },
   {
     id: "paratroopers",
@@ -313,6 +323,8 @@ export const units: Unit[] = [
           special: "Deep Strike, Rapid Fire"
         }
       }
-    ]
+    ],
+    veterancy: "Experienced"
   }
 ];
+

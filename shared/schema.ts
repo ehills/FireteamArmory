@@ -41,7 +41,8 @@ export interface Upgrade {
   statModifiers: StatModifier;
 }
 
-export type UnitType = 'infantry' | 'cavalry' | 'vehicle' | 'monster' | 'hero';
+export type UnitType = 'infantry' | 'vehicle' ;
+export type Veterancy = 'Conscript' | 'Trained' | 'Experienced' | 'Veteran';
 
 export interface Unit {
   id: string;
@@ -50,12 +51,14 @@ export interface Unit {
   pointCost: number;
   stats: UnitStat;
   upgrades: Upgrade[];
+  veterancy: Veterancy;
 }
 
 export interface ArmyUnit extends Unit {
   selectedUpgrades: string[];
   totalPointCost: number;
   finalStats: UnitStat;
+  veterancy: Veterancy;
 }
 
 export interface Army {

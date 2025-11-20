@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Army, ArmyUnit, Unit } from '@/data/units';
+import { Army, ArmyUnit, Unit, Veterancy } from '@/data/units';
 import { calculateUnitFinalStats, calculateUnitTotalCost } from '@/lib/armyUtils';
 import { useToast } from '@/hooks/use-toast';
 
@@ -12,6 +12,7 @@ interface ArmyContextType {
   addUnitToArmy: (unit: Unit) => void;
   removeUnitFromArmy: (unitIndex: number) => void;
   toggleUpgrade: (unitIndex: number, upgradeId: string) => void;
+  setUnitVeterancy: (unitIndex: number, veterancy: Veterancy) => void;
   saveArmy: () => void;
   loadArmy: (armyId: string) => void;
   deleteArmy: (armyId: string) => void;
@@ -66,7 +67,8 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
       ...unit,
       selectedUpgrades: [],
       totalPointCost: unit.pointCost,
-      finalStats: { ...unit.stats }
+      finalStats: { ...unit.stats },
+      veterancy: unit.veterancy
     };
 
     setCurrentArmy(prev => {
@@ -108,6 +110,24 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
       updatedUnits[unitIndex] = unit;
       const totalPoints = updatedUnits.reduce((sum, unit) => sum + unit.totalPointCost, 0);
       
+      return { ...prev, units: updatedUnits, totalPoints };
+    });
+  };
+
+  const setUnitVeterancy = (unitIndex: number, veterancy: Veterancy) => {
+    setCurrentArmy(prev => {
+      const updatedUnits = [...prev.units];
+      const unit = { ...updatedUnits[unitIndex] };
+
+      unit.veterancy = veterancy;
+
+      // Recalculate unit cost and stats if veterancy affects them
+      unit.totalPointCost = calculateUnitTotalCost(unit);
+      unit.finalStats = calculateUnitFinalStats(unit);
+
+      updatedUnits[unitIndex] = unit;
+      const totalPoints = updatedUnits.reduce((sum, unit) => sum + unit.totalPointCost, 0);
+
       return { ...prev, units: updatedUnits, totalPoints };
     });
   };
@@ -196,6 +216,7 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
       addUnitToArmy,
       removeUnitFromArmy,
       toggleUpgrade,
+      setUnitVeterancy,
       saveArmy,
       loadArmy,
       deleteArmy,

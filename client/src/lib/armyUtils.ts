@@ -1,4 +1,11 @@
-import { ArmyUnit, StatModifier, UnitStat } from "@/data/units";
+import { ArmyUnit, StatModifier, UnitStat, Veterancy } from "@/data/units";
+
+const veterancyCostMultiplier: Record<Veterancy, number> = {
+  'Conscript': 0.8,
+  'Trained': 1,
+  'Experienced': 1.2,
+  'Veteran': 1.5,
+};
 
 // Calculate the total cost of a unit including all selected upgrades
 export function calculateUnitTotalCost(unit: ArmyUnit): number {
@@ -9,8 +16,10 @@ export function calculateUnitTotalCost(unit: ArmyUnit): number {
     const upgrade = unit.upgrades.find(u => u.id === upgradeId);
     return total + (upgrade ? upgrade.pointCost : 0);
   }, 0);
+
+  const totalCost = (baseCost + upgradeCost) * veterancyCostMultiplier[unit.veterancy];
   
-  return baseCost + upgradeCost;
+  return Math.round(totalCost);
 }
 
 // Apply a stat modifier to the base stat

@@ -127,10 +127,7 @@ export default function UnitBrowser() {
           >
             <option value="">All types</option>
             <option value="infantry">Infantry</option>
-            <option value="cavalry">Cavalry</option>
             <option value="vehicle">Vehicle</option>
-            <option value="monster">Monster</option>
-            <option value="hero">Hero</option>
           </select>
           
           <select 

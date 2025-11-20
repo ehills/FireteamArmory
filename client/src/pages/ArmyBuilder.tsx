@@ -7,7 +7,7 @@ import SaveLoadModal from '@/components/SaveLoadModal';
 import { useState } from 'react';
 
 export default function ArmyBuilder() {
-  const { currentArmy, removeUnitFromArmy, toggleUpgrade, isModalOpen } = useArmy();
+  const { currentArmy, removeUnitFromArmy, toggleUpgrade, setUnitVeterancy, isModalOpen } = useArmy();
   const [armySortOption, setArmySortOption] = useState<string>('name');
 
   // Sort army units based on selected option
@@ -67,6 +67,7 @@ export default function ArmyBuilder() {
                       index={index}
                       onRemove={removeUnitFromArmy}
                       onToggleUpgrade={toggleUpgrade}
+                      onVeterancyChange={setUnitVeterancy}
                     />
                   ))
                 ) : (

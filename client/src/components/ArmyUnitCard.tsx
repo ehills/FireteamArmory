@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { ArmyUnit } from '@/data/units';
+import { ArmyUnit, Veterancy } from '@/data/units';
 
 interface ArmyUnitCardProps {
   unit: ArmyUnit;
   index: number;
   onRemove: (index: number) => void;
   onToggleUpgrade: (unitIndex: number, upgradeId: string) => void;
+  onVeterancyChange: (unitIndex: number, veterancy: Veterancy) => void;
 }
 
-export default function ArmyUnitCard({ unit, index, onRemove, onToggleUpgrade }: ArmyUnitCardProps) {
+export default function ArmyUnitCard({ unit, index, onRemove, onToggleUpgrade, onVeterancyChange }: ArmyUnitCardProps) {
   const [upgradesVisible, setUpgradesVisible] = useState(false);
 
   const toggleUpgradesVisibility = () => {
@@ -21,6 +22,10 @@ export default function ArmyUnitCard({ unit, index, onRemove, onToggleUpgrade }:
 
   const handleUpgradeChange = (upgradeId: string) => {
     onToggleUpgrade(index, upgradeId);
+  };
+
+  const handleVeterancyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onVeterancyChange(index, e.target.value as Veterancy);
   };
 
   return (
@@ -44,6 +49,15 @@ export default function ArmyUnitCard({ unit, index, onRemove, onToggleUpgrade }:
               </svg>
             </button>
           </div>
+        </div>
+
+        <div className="mt-3">
+          <select value={unit.veterancy} onChange={handleVeterancyChange} className="bg-dark-300 text-white text-xs rounded p-1.5">
+            <option value="Conscript">Conscript</option>
+            <option value="Trained">Trained</option>
+            <option value="Experienced">Experienced</option>
+            <option value="Veteran">Veteran</option>
+          </select>
         </div>
         
         <div className="mt-2 grid grid-cols-5 gap-2 text-xs text-gray-300">
