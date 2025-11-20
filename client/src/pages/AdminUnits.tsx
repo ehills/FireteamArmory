@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import {Veterancy} from "@shared/schema.ts";
+import { Veterancy } from "@shared/schema.ts";
 
 export default function AdminUnits() {
   // Units stored in local storage
@@ -52,6 +52,7 @@ export default function AdminUnits() {
     stats: UnitStat;
     upgrades: Upgrade[];
     veterancy: Veterancy;
+    faction?: string; // optional faction field
   }>({
     id: '',
     name: '',
@@ -65,7 +66,8 @@ export default function AdminUnits() {
       special: ''
     },
     upgrades: [],
-    veterancy: 'Trained'
+    veterancy: 'Trained',
+    faction: ''
   });
   
   // State for the new upgrade form
@@ -128,7 +130,8 @@ export default function AdminUnits() {
         special: ''
       },
       upgrades: [],
-      veterancy: 'Trained'
+      veterancy: 'Trained',
+      faction: '' // start empty by default
     });
     setIsDialogOpen(true);
   };
@@ -376,10 +379,10 @@ export default function AdminUnits() {
                 />
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <label className="text-sm font-medium mb-1 block">Unit Type</label>
-                  <Select 
+                  <Select
                     value={unitForm.type}
                     onValueChange={value => setUnitForm(prev => ({ ...prev, type: value as UnitType }))}
                   >
@@ -392,18 +395,68 @@ export default function AdminUnits() {
                     </SelectContent>
                   </Select>
                 </div>
-                
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Faction</label>
+                  <Select
+                    value={unitForm.faction || 'none'}
+                    onValueChange={value => setUnitForm(prev => ({ ...prev, faction: value === 'none' ? '' : value }))}
+                  >
+                    <SelectTrigger className="bg-dark-300 border-dark-200">
+                      <SelectValue placeholder="Select faction" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-dark-400 border-dark-200">
+                      <SelectItem value="none">None</SelectItem>
+                      <SelectItem value="Allies">Allies</SelectItem>
+                      <SelectItem value="Axis">Axis</SelectItem>
+                      <SelectItem value="custom">Custom...</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-1 block">Veterancy</label>
+                  <Select
+                    value={unitForm.veterancy}
+                    onValueChange={value => setUnitForm(prev => ({ ...prev, veterancy: value as Veterancy }))}
+                  >
+                    <SelectTrigger className="bg-dark-300 border-dark-200">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-dark-400 border-dark-200">
+                      <SelectItem value="Conscript">Conscript</SelectItem>
+                      <SelectItem value="Trained">Trained</SelectItem>
+                      <SelectItem value="Experienced">Experienced</SelectItem>
+                      <SelectItem value="Veteran">Veteran</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div>
                   <label className="text-sm font-medium mb-1 block">Point Cost</label>
-                  <Input 
+                  <Input
                     type="number"
                     min="1"
-                    value={unitForm.pointCost} 
+                    value={unitForm.pointCost}
                     onChange={e => setUnitForm(prev => ({ ...prev, pointCost: parseInt(e.target.value) || 0 }))}
                     className="bg-dark-300 border-dark-200"
                   />
                 </div>
               </div>
+
+              {/* Custom faction input - only shown when "custom" is selected */}
+              {unitForm.faction === 'custom' && (
+                <div className="mt-3">
+                  <label className="text-sm font-medium mb-1 block">Custom Faction Name</label>
+                  <Input
+                    value=""
+                    onChange={e => setUnitForm(prev => ({ ...prev, faction: e.target.value }))}
+                    placeholder="Enter custom faction name"
+                    className="bg-dark-300 border-dark-200 max-w-xs"
+                    autoFocus
+                  />
+                </div>
+              )}
             </div>
             
             <div className="col-span-2">
@@ -682,6 +735,11 @@ export default function AdminUnits() {
                     <span className="px-2 py-0.5 rounded-full bg-dark-500 text-xs text-accent">
                       {unit.type.charAt(0).toUpperCase() + unit.type.slice(1)}
                     </span>
+                    {unit.faction && (
+                      <span className="px-2 py-0.5 rounded-full bg-dark-500 text-xs text-accent">
+                        {unit.faction}
+                      </span>
+                    )}
                     <span className="text-sm font-medium">{unit.pointCost} pts</span>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 
 export default function ArmyHeader() {
-  const { currentArmy, savedArmies, pointExceeded, setArmyName, setPointCap, loadArmy } = useArmy();
+  const { currentArmy, savedArmies, pointExceeded, setArmyName, setArmyFaction, setPointCap, loadArmy } = useArmy();
 
   const handleArmyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArmyName(e.target.value);
@@ -21,11 +21,15 @@ export default function ArmyHeader() {
       setPointCap(newCap);
     }
   };
-  
+
+  const handleFactionChange = (value: string) => {
+    setArmyFaction(value === 'none' ? '' : value);
+  };
+
   const handleArmyChange = (armyId: string) => {
     // If selecting current army, do nothing
     if (armyId === currentArmy.id) return;
-    
+
     // If selecting "new", create a new army (handled by loadArmy)
     loadArmy(armyId);
   };
@@ -93,16 +97,34 @@ export default function ArmyHeader() {
             </div>
           </div>
           
-          <div className="flex mt-2 items-center">
-            <span className="text-sm text-gray-400 mr-2">Point Cap:</span>
-            <input
-              type="number"
-              value={currentArmy.pointCap}
-              min="500"
-              step="100"
-              className="bg-dark-400 border border-dark-100 rounded p-1 w-20 text-sm focus:ring-1 focus:ring-primary focus:outline-none"
-              onChange={handlePointCapChange}
-            />
+          <div className="flex mt-2 items-center gap-4 flex-wrap">
+            <div className="flex items-center">
+              <span className="text-sm text-gray-400 mr-2">Faction:</span>
+              <Select value={currentArmy.faction || 'none'} onValueChange={handleFactionChange}>
+                <SelectTrigger className="bg-dark-400 border-dark-100 w-32 h-8 text-sm">
+                  <SelectValue placeholder="Select faction" />
+                </SelectTrigger>
+                <SelectContent className="bg-dark-400 border-dark-100">
+                  <SelectGroup>
+                    <SelectItem value="none">None</SelectItem>
+                    <SelectItem value="Allies">Allies</SelectItem>
+                    <SelectItem value="Axis">Axis</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center">
+              <span className="text-sm text-gray-400 mr-2">Point Cap:</span>
+              <input
+                type="number"
+                value={currentArmy.pointCap}
+                min="500"
+                step="100"
+                className="bg-dark-400 border border-dark-100 rounded p-1 w-20 text-sm focus:ring-1 focus:ring-primary focus:outline-none"
+                onChange={handlePointCapChange}
+              />
+            </div>
           </div>
         </div>
         

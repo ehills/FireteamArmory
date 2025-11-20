@@ -52,6 +52,7 @@ export interface Unit {
   stats: UnitStat;
   upgrades: Upgrade[];
   veterancy: Veterancy;
+  faction?: string; // optional faction field
 }
 
 export interface ArmyUnit extends Unit {
@@ -64,6 +65,7 @@ export interface ArmyUnit extends Unit {
 export interface Army {
   id: string;
   name: string;
+  faction?: string;
   units: ArmyUnit[];
   pointCap: number;
   totalPoints: number;

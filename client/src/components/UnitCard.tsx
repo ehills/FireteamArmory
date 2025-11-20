@@ -23,6 +23,11 @@ export default function UnitCard({ unit, onAdd }: UnitCardProps) {
         <span className="px-2 py-0.5 rounded-full bg-dark-500 text-accent mr-2">
           {unit.type.charAt(0).toUpperCase() + unit.type.slice(1)}
         </span>
+        {unit.faction && (
+          <span className="px-2 py-0.5 rounded-full bg-dark-500 text-accent mr-2 text-xs">
+            {unit.faction}
+          </span>
+        )}
         <div className="flex space-x-2 text-gray-400">
           <span title="Movement">M:{unit.stats.movement}</span>
           <span title="Armor">A:{unit.stats.armor}</span>

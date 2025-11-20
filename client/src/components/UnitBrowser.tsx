@@ -4,14 +4,29 @@ import { units as defaultUnits, UnitType, Unit } from '@/data/units';
 import UnitCard from './UnitCard';
 
 export default function UnitBrowser() {
-  const { addUnitToArmy } = useArmy();
+  const { addUnitToArmy, currentArmy } = useArmy();
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('');
+  const [factionFilter, setFactionFilter] = useState<string>('');
   const [sortOption, setSortOption] = useState<string>('name');
   
   // Internal state to store all units (default + custom)
   const [allUnits, setAllUnits] = useState<Unit[]>([...defaultUnits]);
   
+  // Compute unique factions from allUnits (filtered by army faction if set)
+  const factions = useMemo(() => {
+    const set = new Set<string>();
+    allUnits.forEach(u => {
+      if (u.faction) {
+        // Only include factions that match the army faction or if no army faction is set
+        if (!currentArmy.faction || u.faction === currentArmy.faction) {
+          set.add(u.faction);
+        }
+      }
+    });
+    return Array.from(set).sort();
+  }, [allUnits, currentArmy.faction]);
+
   // Function to load custom units
   const loadCustomUnits = () => {
     try {
@@ -58,20 +73,33 @@ export default function UnitBrowser() {
   // Filter and sort units - recompute when dependencies change
   const filteredUnits = useMemo(() => {
     let filtered = [...allUnits];
-    
+
+    // Apply army faction filter first (if army has a faction selected)
+    // Show only units from the same faction OR units with no faction
+    if (currentArmy.faction) {
+      filtered = filtered.filter(unit =>
+        !unit.faction || unit.faction === currentArmy.faction
+      );
+    }
+
     // Apply search filter
     if (searchTerm) {
       const lowercaseSearch = searchTerm.toLowerCase();
-      filtered = filtered.filter(unit => 
+      filtered = filtered.filter(unit =>
         unit.name.toLowerCase().includes(lowercaseSearch)
       );
     }
-    
+
     // Apply type filter
     if (typeFilter) {
       filtered = filtered.filter(unit => unit.type === typeFilter);
     }
-    
+
+    // Apply manual faction filter (this further filters within army faction)
+    if (factionFilter) {
+      filtered = filtered.filter(unit => unit.faction === factionFilter);
+    }
+
     // Apply sorting
     filtered.sort((a, b) => {
       if (sortOption === 'name') {
@@ -83,9 +111,9 @@ export default function UnitBrowser() {
       }
       return 0;
     });
-    
+
     return filtered;
-  }, [allUnits, searchTerm, typeFilter, sortOption]);
+  }, [allUnits, searchTerm, typeFilter, factionFilter, sortOption, currentArmy.faction]);
 
   // Event handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +124,10 @@ export default function UnitBrowser() {
     setTypeFilter(e.target.value as UnitType | '');
   };
 
+  const handleFactionFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFactionFilter(e.target.value);
+  };
+
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOption(e.target.value);
   };
@@ -103,7 +135,16 @@ export default function UnitBrowser() {
   return (
     <div className="bg-dark-300 rounded-lg p-4 h-full overflow-hidden flex flex-col">
       <h2 className="font-display text-xl mb-4 pb-2 border-b border-dark-100">Unit Browser</h2>
-      
+
+      {/* Army Faction Filter Indicator */}
+      {currentArmy.faction && (
+        <div className="mb-3 p-2 bg-primary/10 border border-primary/30 rounded text-sm">
+          <span className="text-gray-300">Showing units for: </span>
+          <span className="font-semibold text-primary">{currentArmy.faction}</span>
+          <span className="text-gray-400 ml-1">(and neutral units)</span>
+        </div>
+      )}
+
       {/* Search and Filter Controls */}
       <div className="mb-4 space-y-3">
         <div className="relative">
@@ -129,7 +170,18 @@ export default function UnitBrowser() {
             <option value="infantry">Infantry</option>
             <option value="vehicle">Vehicle</option>
           </select>
-          
+
+          <select
+            className="bg-dark-400 border border-dark-100 rounded p-2 text-sm flex-grow focus:ring-1 focus:ring-primary focus:outline-none"
+            value={factionFilter}
+            onChange={handleFactionFilterChange}
+          >
+            <option value="">All factions</option>
+            {factions.map(f => (
+              <option key={f} value={f}>{f}</option>
+            ))}
+          </select>
+
           <select 
             className="bg-dark-400 border border-dark-100 rounded p-2 text-sm flex-grow focus:ring-1 focus:ring-primary focus:outline-none"
             value={sortOption}

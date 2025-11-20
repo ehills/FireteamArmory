@@ -37,6 +37,11 @@ export default function ArmyUnitCard({ unit, index, onRemove, onToggleUpgrade, o
             <span className="ml-2 px-2 py-0.5 rounded-full bg-dark-500 text-xs text-accent">
               {unit.type.charAt(0).toUpperCase() + unit.type.slice(1)}
             </span>
+            {unit.faction && (
+              <span className="ml-2 px-2 py-0.5 rounded-full bg-dark-500 text-xs text-accent">
+                {unit.faction}
+              </span>
+            )}
           </div>
           <div className="flex items-center space-x-2">
             <span className="font-bold text-white">{unit.totalPointCost} pts</span>

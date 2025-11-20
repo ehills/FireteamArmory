@@ -8,6 +8,7 @@ interface ArmyContextType {
   savedArmies: Army[];
   pointExceeded: boolean;
   setArmyName: (name: string) => void;
+  setArmyFaction: (faction: string) => void;
   setPointCap: (cap: number) => void;
   addUnitToArmy: (unit: Unit) => void;
   removeUnitFromArmy: (unitIndex: number) => void;
@@ -25,6 +26,7 @@ interface ArmyContextType {
 const defaultArmy: Army = {
   id: crypto.randomUUID(),
   name: "New Army",
+  faction: '',
   units: [],
   pointCap: 2000,
   totalPoints: 0
@@ -56,6 +58,10 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
 
   const setArmyName = (name: string) => {
     setCurrentArmy(prev => ({ ...prev, name }));
+  };
+
+  const setArmyFaction = (faction: string) => {
+    setCurrentArmy(prev => ({ ...prev, faction }));
   };
 
   const setPointCap = (pointCap: number) => {
@@ -192,11 +198,12 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
     setCurrentArmy({
       id: crypto.randomUUID(),
       name: "New Army",
+      faction: '',
       units: [],
       pointCap: 2000,
       totalPoints: 0
     });
-    
+
     toast({
       title: "New Army Created",
       description: "Start adding units to your new army."
@@ -212,6 +219,7 @@ export function ArmyProvider({ children }: { children: React.ReactNode }) {
       savedArmies,
       pointExceeded,
       setArmyName,
+      setArmyFaction,
       setPointCap,
       addUnitToArmy,
       removeUnitFromArmy,

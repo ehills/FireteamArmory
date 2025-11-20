@@ -29,6 +29,7 @@ export interface Unit {
   stats: UnitStat;
   upgrades: Upgrade[];
   veterancy: Veterancy;
+  faction?: string; // optional faction field
 }
 
 export type UnitType = 'infantry' | 'vehicle';
@@ -44,6 +45,7 @@ export interface ArmyUnit extends Unit {
 export interface Army {
   id: string;
   name: string;
+  faction?: string;
   units: ArmyUnit[];
   pointCap: number;
   totalPoints: number;
@@ -82,7 +84,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Trained"
+    veterancy: "Trained",
+    faction: "Allies"
   },
   {
     id: "infantry-squad",
@@ -116,7 +119,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Trained"
+    veterancy: "Trained",
+    // intentionally no faction on this one (generic)
   },
   {
     id: "sherman-tank",
@@ -150,7 +154,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Trained"
+    veterancy: "Trained",
+    faction: "Allies"
   },
   {
     id: "veteran-officer",
@@ -185,7 +190,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Veteran"
+    veterancy: "Veteran",
+    faction: "Allies"
   },
   {
     id: "motorcycle-scout",
@@ -219,7 +225,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Experienced"
+    veterancy: "Experienced",
+    faction: "Axis"
   },
   {
     id: "flamethrower-team",
@@ -254,7 +261,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Trained"
+    veterancy: "Trained",
+    // no faction - generic
   },
   {
     id: "artillery-howitzer",
@@ -289,7 +297,8 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Trained"
+    veterancy: "Trained",
+    faction: "Axis"
   },
   {
     id: "paratroopers",
@@ -324,7 +333,7 @@ export const units: Unit[] = [
         }
       }
     ],
-    veterancy: "Experienced"
+    veterancy: "Experienced",
+    faction: "Allies"
   }
 ];
-
