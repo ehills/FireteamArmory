@@ -1,62 +1,43 @@
-import { useArmy } from '@/contexts/ArmyContext';
 import { Link, useLocation } from 'wouter';
+import { GiTank } from 'react-icons/gi';
 
 export default function AppHeader() {
-  const { createNewArmy, saveArmy, openModal } = useArmy();
   const [location] = useLocation();
-  
-  const isAdminPage = location.startsWith('/admin');
-  const isHomePage = location === '/';
 
   return (
-    <header className="bg-dark-400 border-b border-dark-100 py-4 px-6">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center">
-          <Link href="/" className="text-2xl font-display font-bold text-primary flex items-center">
-            <span className="text-white">War</span>Forge
+    <header className="bg-dark-400 border-b border-dark-200 sticky top-0 z-50 shadow-md">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="flex items-center justify-between h-14">
+          {/* Logo & Brand */}
+          <Link href="/">
+            <div className="flex items-center gap-3 cursor-pointer group">
+              <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
+                <GiTank className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-lg font-display font-bold text-foreground leading-none tracking-wider">
+                  FIRE TEAM 1942
+                </h1>
+                <p className="text-[10px] text-muted-foreground leading-none mt-1 tracking-widest uppercase font-semibold text-primary/80">
+                  ARMY BUILDER
+                </p>
+              </div>
+            </div>
           </Link>
-          
-          <div className="ml-8 flex space-x-4">
-            <Link href="/" className={`px-3 py-1 rounded text-sm transition-colors ${isHomePage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
-              Army Builder
+
+          {/* Navigation */}
+          <nav className="flex items-center gap-1">
+            <Link href="/">
+              <span className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                location === '/'
+                  ? 'bg-primary/20 text-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-dark-300'
+              }`}>
+                Roster Builder
+              </span>
             </Link>
-            <Link href="/admin/units" className={`px-3 py-1 rounded text-sm transition-colors ${isAdminPage ? 'text-white bg-dark-300' : 'text-gray-400 hover:text-white'}`}>
-              Admin
-            </Link>
-          </div>
+          </nav>
         </div>
-        
-        {isHomePage && (
-          <div className="flex space-x-4">
-            <button 
-              className="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition duration-150 ease-in-out flex items-center"
-              onClick={createNewArmy}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              New Army
-            </button>
-            <button 
-              className="bg-dark-300 hover:bg-dark-200 text-white px-4 py-2 rounded text-sm transition duration-150 ease-in-out flex items-center"
-              onClick={saveArmy}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-              </svg>
-              Save
-            </button>
-            <button 
-              className="bg-dark-300 hover:bg-dark-200 text-white px-4 py-2 rounded text-sm transition duration-150 ease-in-out flex items-center"
-              onClick={openModal}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
-              Load
-            </button>
-          </div>
-        )}
       </div>
     </header>
   );
