@@ -1,0 +1,222 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel">
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="45"/>
+ </o:shapelayout><v:shapetype id="_x0000_t201" coordsize="21600,21600" o:spt="201"
+  path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path shadowok="f" o:extrusionok="f" strokeok="f" fillok="f" o:connecttype="rect"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+ </v:shapetype><v:shape id="_x0000_s46081" type="#_x0000_t201" style='position:absolute;
+  margin-left:211pt;margin-top:299pt;width:90.5pt;height:16.5pt;z-index:1;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 100, 19, 25, 3, 92, 20, 28</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad3</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46083" type="#_x0000_t201" style='position:absolute;
+  margin-left:1pt;margin-top:333pt;width:146.5pt;height:31.5pt;z-index:2;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="360"
+   color="#000000">Clear All</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    0, 2, 22, 2, 0, 295, 23, 27</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!ClearAllSquadsAndVehicles</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46084" type="#_x0000_t201" style='position:absolute;
+  margin-left:0;margin-top:285.5pt;width:147.5pt;height:42pt;z-index:3;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="280"
+   color="#000000">validate army and send to setup page</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    0, 0, 18, 28, 0, 295, 21, 22</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!validatearmyandsendtosetup</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46085" type="#_x0000_t201" style='position:absolute;
+  margin-left:862.5pt;margin-top:471.5pt;width:109.5pt;height:16pt;z-index:4;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear Defences<br>
+      </font><font face="Calibri" size="220" color="#000000">Clear Defences</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    8, 0, 31, 0, 9, 0, 32, 2</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!cleardefences</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46086" type="#_x0000_t201" style='position:absolute;
+  margin-left:208pt;margin-top:73.5pt;width:93pt;height:16pt;z-index:5;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 94, 4, 26, 3, 91, 5, 28</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquadBGC</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46087" type="#_x0000_t201" style='position:absolute;
+  margin-left:208.5pt;margin-top:606pt;width:93pt;height:14.5pt;z-index:6;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 95, 39, 28, 3, 92, 40, 27</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad7</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46088" type="#_x0000_t201" style='position:absolute;
+  margin-left:205.5pt;margin-top:150pt;width:94pt;height:15.5pt;z-index:7;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear squad<br>
+      </font><font face="Calibri" size="220" color="#000000">Clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 89, 9, 28, 3, 88, 10, 29</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad1</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46089" type="#_x0000_t201" style='position:absolute;
+  margin-left:210.5pt;margin-top:225.5pt;width:91.5pt;height:14.5pt;z-index:8;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 99, 14, 28, 3, 93, 15, 27</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad2</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46090" type="#_x0000_t201" style='position:absolute;
+  margin-left:208.5pt;margin-top:381pt;width:92.5pt;height:14.5pt;z-index:9;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 95, 24, 30, 3, 91, 25, 29</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad4</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46091" type="#_x0000_t201" style='position:absolute;
+  margin-left:207.5pt;margin-top:456.5pt;width:92pt;height:13pt;z-index:10;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 93, 30, 0, 3, 88, 30, 26</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad5</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s46092" type="#_x0000_t201" style='position:absolute;
+  margin-left:209.5pt;margin-top:530.5pt;width:92.5pt;height:13pt;z-index:11;
+  mso-wrap-style:tight' o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]"
+  o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"/>
+  <o:lock v:ext="edit" rotation="t"/>
+  <v:textbox style='mso-direction-alt:auto' o:singleclick="f">
+   <div style='text-align:center'><font face="Calibri" size="220"
+   color="#000000">Clear squad</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>
+    2, 97, 35, 0, 3, 93, 35, 26</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!clearsquad6</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape></xml>

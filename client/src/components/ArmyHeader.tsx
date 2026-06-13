@@ -107,6 +107,12 @@ export default function ArmyHeader() {
                 <SelectContent className="bg-dark-400 border-dark-100">
                   <SelectGroup>
                     <SelectItem value="none">None</SelectItem>
+                    <SelectItem value="USA">USA</SelectItem>
+                    <SelectItem value="Germany">Germany</SelectItem>
+                    <SelectItem value="Russia">Russia</SelectItem>
+                    <SelectItem value="Finland">Finland</SelectItem>
+                    <SelectItem value="Japan">Japan</SelectItem>
+                    <SelectItem value="Great_Britain">Great Britain</SelectItem>
                     <SelectItem value="Allies">Allies</SelectItem>
                     <SelectItem value="Axis">Axis</SelectItem>
                   </SelectGroup>

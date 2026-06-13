@@ -41,7 +41,7 @@ export interface Upgrade {
   statModifiers: StatModifier;
 }
 
-export type UnitType = 'infantry' | 'vehicle' ;
+export type UnitType = 'infantry' | 'vehicle' | 'tank' | 'asset';
 export type Veterancy = 'Conscript' | 'Trained' | 'Experienced' | 'Veteran';
 
 export interface Unit {
@@ -52,7 +52,8 @@ export interface Unit {
   stats: UnitStat;
   upgrades: Upgrade[];
   veterancy: Veterancy;
-  faction?: string; // optional faction field
+  faction?: string;
+  division?: string;
 }
 
 export interface ArmyUnit extends Unit {

@@ -344,6 +344,8 @@ export default function AdminUnits() {
               <TabsTrigger value="all">All Units</TabsTrigger>
               <TabsTrigger value="infantry">Infantry</TabsTrigger>
               <TabsTrigger value="vehicle">Vehicle</TabsTrigger>
+              <TabsTrigger value="tank">Tank</TabsTrigger>
+              <TabsTrigger value="asset">Asset</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all" className="space-y-4">
@@ -356,6 +358,14 @@ export default function AdminUnits() {
             
             <TabsContent value="vehicle" className="space-y-4">
               {displayUnitsList(displayedUnits.filter(unit => unit.type === 'vehicle'))}
+            </TabsContent>
+
+            <TabsContent value="tank" className="space-y-4">
+              {displayUnitsList(displayedUnits.filter(unit => unit.type === 'tank'))}
+            </TabsContent>
+
+            <TabsContent value="asset" className="space-y-4">
+              {displayUnitsList(displayedUnits.filter(unit => unit.type === 'asset'))}
             </TabsContent>
           </Tabs>
         </div>
@@ -392,6 +402,8 @@ export default function AdminUnits() {
                     <SelectContent className="bg-dark-400 border-dark-200">
                       <SelectItem value="infantry">Infantry</SelectItem>
                       <SelectItem value="vehicle">Vehicle</SelectItem>
+                      <SelectItem value="tank">Tank</SelectItem>
+                      <SelectItem value="asset">Asset</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -405,8 +417,14 @@ export default function AdminUnits() {
                     <SelectTrigger className="bg-dark-300 border-dark-200">
                       <SelectValue placeholder="Select faction" />
                     </SelectTrigger>
-                    <SelectContent className="bg-dark-400 border-dark-200">
+                    <SelectContent className="bg-dark-400 border-dark-100">
                       <SelectItem value="none">None</SelectItem>
+                      <SelectItem value="USA">USA</SelectItem>
+                      <SelectItem value="Germany">Germany</SelectItem>
+                      <SelectItem value="Russia">Russia</SelectItem>
+                      <SelectItem value="Finland">Finland</SelectItem>
+                      <SelectItem value="Japan">Japan</SelectItem>
+                      <SelectItem value="Great_Britain">Great Britain</SelectItem>
                       <SelectItem value="Allies">Allies</SelectItem>
                       <SelectItem value="Axis">Axis</SelectItem>
                       <SelectItem value="custom">Custom...</SelectItem>
